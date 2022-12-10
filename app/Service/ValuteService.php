@@ -12,12 +12,16 @@ class ValuteService
 
     public function find($value, $date_from = null, $date_to = null)
     {
-        $date_from = self::converIntToString($date_from);
-        $date_to = self::converIntToString($date_to);
-        return Currency::where('valuteID', $value)
-            ->where('date', '>=', $date_from)
-            ->where('date', '<=', $date_to)
-            ->get();
+        $query = Currency::where('valuteID', $value);
+        if ($date_from !== null) {
+            $date_from = self::converIntToString($date_from);
+            $query->where('date', '>=', $date_from);
+        }
+        if ($date_to !== null) {
+            $date_to = self::converIntToString($date_to);
+            $query->where('date', '<=', $date_to);
+        }
+        return $query->get();
     }
 
     static function getQuotesDay($date = null)

@@ -33,8 +33,8 @@ class Fill_currency extends Command
         $dayT = Carbon::now();
         for ($i = 0; $i < 40; $i++) {
             $dayB = Carbon::create($dayT)->subDays($i)->format('d/m/Y');
-            $dayD = Carbon::create($dayT)->subDays($i);
-            echo 'День '. $i;
+            $dayD = str_replace('/', '-', $dayB);
+            echo 'День ' . $i;
             echo '   ';
             $xml = ValuteService::getQuotesDay($dayB);
             foreach ($xml->Valute as $a) {
